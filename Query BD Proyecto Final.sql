@@ -124,7 +124,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[ACTIVIDAD](
-	[id_actividad] [int] NOT NULL,
+	[id_actividad] [int] NOT NULL IDENTITY(1,1),
 	[codigo] [nchar](20) NULL,
 	[nombre] [nchar](20) NULL,
 	[descripcion] [nchar](60) NULL,
@@ -159,7 +159,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[AD_HOC](
-	[id_adhoc] [int] NOT NULL,
+	[id_adhoc] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](20) NULL,
 	[codigo] [nchar](20) NULL,
 	[descripcion] [nchar](60) NULL,
@@ -187,10 +187,16 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[BITACORA](
+	[id_bitacora] [int] NOT NULL IDENTITY(1,1),
 	[id_actividad] [int] NULL,
 	[valores_ingresados] [int] NULL,
 	[fecha] [datetime] NULL,
 	[usuario] [nchar](20) NULL
+
+ CONSTRAINT [PK_BITACORA] PRIMARY KEY CLUSTERED 
+(
+	[id_bitacora] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
@@ -206,10 +212,17 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[CIERRE_PRODUCCION](
-	[id_orden] [int] NULL,
-	[line_num] [int] NULL,
+	[id_orden] [int] NOT NULL,
+	[line_num] [int] NOT NULL IDENTITY (1,1),
 	[turno] [int] NULL,
 	[cantidad] [int] NULL
+
+CONSTRAINT [PK_CIERRE_PRODUCCION] PRIMARY KEY CLUSTERED 
+(
+	[id_orden] ASC,
+	[line_num] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
 ) ON [PRIMARY]
 
 GO
@@ -228,7 +241,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[COPIA_ACTIVIDAD](
-	[id_actividad] [int] NOT NULL,
+	[id_actividad] [int] NOT NULL IDENTITY(1,1),
 	[codigo] [nchar](20) NULL,
 	[nombre] [nchar](20) NULL,
 	[descripcion] [nchar](60) NULL,
@@ -259,7 +272,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[COPIA_FLUJO](
-	[id_flujo] [int] NOT NULL,
+	[id_flujo] [int] NOT NULL IDENTITY(1,1),
  CONSTRAINT [PK_COPIA_FLUJO] PRIMARY KEY CLUSTERED 
 (
 	[id_flujo] ASC
@@ -278,7 +291,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[COPIA_FLUJO_PROCESO](
-	[id_flujo_proceso] [int] NOT NULL,
+	[id_flujo_proceso] [int] NOT NULL IDENTITY(1,1),
 	[id_actividad] [int] NULL,
 	[id_flujo] [int] NULL,
  CONSTRAINT [PK_COPIA_FLUJO_PROCESO] PRIMARY KEY CLUSTERED 
@@ -300,7 +313,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[COPIA_PREDECESORA](
-	[id_predecesora] [int] NOT NULL,
+	[id_predecesora] [int] NOT NULL IDENTITY(1,1),
 	[id_actual] [int] NULL,
 	[id_anterior] [int] NULL,
  CONSTRAINT [PK_COPIA_PREDECESORA] PRIMARY KEY CLUSTERED 
@@ -322,7 +335,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[DOCUMENTO](
-	[id_documento] [int] NOT NULL,
+	[id_documento] [int] NOT NULL IDENTITY(1,1),
 	[id_producto] [int] NULL,
 	[nombre] [nchar](30) NULL,
 	[fecha] [date] NULL,
@@ -344,7 +357,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[EMPLEADO](
-	[id_empleado] [int] NOT NULL,
+	[id_empleado] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](50) NULL,
 	[id_rol] [int] NULL,
 	[id_tipo] [int] NULL,
@@ -368,7 +381,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[FIRMA](
-	[id_firma] [int] NOT NULL,
+	[id_firma] [int] NOT NULL IDENTITY(1,1),
 	[id_rol] [int] NULL,
 	[id_actividad] [int] NULL,
 	[id_empleado] [int] NULL,
@@ -391,7 +404,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[FLUJO](
-	[id_flujo] [int] NOT NULL,
+	[id_flujo] [int] NOT NULL IDENTITY(1,1),
  CONSTRAINT [PK_FLUJO] PRIMARY KEY CLUSTERED 
 (
 	[id_flujo] ASC
@@ -411,7 +424,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[FLUJO_PROCESO](
-	[id_flujo_proceso] [int] NOT NULL,
+	[id_flujo_proceso] [int] NOT NULL IDENTITY(1,1),
 	[id_actividad] [int] NULL,
 	[id_flujo] [int] NULL,
  CONSTRAINT [PK_FLUJO_PROCESO] PRIMARY KEY CLUSTERED 
@@ -432,7 +445,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[LINEA](
-	[id_linea] [int] NOT NULL,
+	[id_linea] [int] NOT NULL IDENTITY(1,1),
 	[descripcion] [nchar](60) NULL,
  CONSTRAINT [PK_LINEA] PRIMARY KEY CLUSTERED 
 (
@@ -456,7 +469,7 @@ GO
 
 CREATE TABLE [dbo].[LISTA_CHEQUEO](
 	[id_actividad] [int] NOT NULL,
-	[line_num] [int] NOT NULL,
+	[line_num] [int] NOT NULL IDENTITY(1,1),
 	[texto] [nchar](60) NULL,
 	[resultado] [char](1) NULL,
 	[fecha] [date] NULL,
@@ -484,7 +497,7 @@ GO
 
 CREATE TABLE [dbo].[LISTA_MATERIAL](
 	[id_producto] [int] NOT NULL,
-	[linea_num] [int] NOT NULL,
+	[linea_num] [int] NOT NULL IDENTITY(1,1),
 	[id_material] [int] NULL,
  CONSTRAINT [PK_LISTA_MATERIAL] PRIMARY KEY CLUSTERED 
 (
@@ -505,7 +518,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[MATERIAL](
-	[id_material] [int] NOT NULL,
+	[id_material] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](20) NULL,
  CONSTRAINT [PK_MATERIAL] PRIMARY KEY CLUSTERED 
 (
@@ -528,7 +541,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[ORDEN](
-	[id_orden] [int] NOT NULL,
+	[id_orden] [int] NOT NULL IDENTITY(1,1),
 	[lote] [nchar](10) NULL,
 	[id_producto] [int] NULL,
 	[id_linea] [int] NULL,
@@ -557,7 +570,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[PANTALLA](
-	[id_pantalla] [int] NOT NULL,
+	[id_pantalla] [int] NOT NULL IDENTITY(1,1),
 	[codigo] [nchar](20) NULL,
 	[nombre] [nchar](15) NULL,
 	[tipo] [int] NULL,
@@ -579,7 +592,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[PERIODICA](
-	[id_actividad] [int] NOT NULL,
+	[id_actividad] [int] NOT NULL IDENTITY(1,1),
 	[tiempo_minutos] [int] NULL,
 	[descripcion] [nchar](60) NULL,
  CONSTRAINT [PK_PERIODICA] PRIMARY KEY CLUSTERED 
@@ -600,7 +613,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[PREDECESORA](
-	[id_predecesora] [int] NOT NULL,
+	[id_predecesora] [int] NOT NULL IDENTITY(1,1),
 	[id_actual] [int] NULL,
 	[id_anterior] [int] NULL,
  CONSTRAINT [PK_PREDECESORA] PRIMARY KEY CLUSTERED 
@@ -621,7 +634,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[PRODUCTO](
-	[id_producto] [int] NOT NULL,
+	[id_producto] [int] NOT NULL IDENTITY(1,1),
 	[id_flujo] [int] NULL,
  CONSTRAINT [PK_PRODUCTO] PRIMARY KEY CLUSTERED 
 (
@@ -641,7 +654,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[ROL](
-	[id_rol] [int] NOT NULL,
+	[id_rol] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](20) NULL,
  CONSTRAINT [PK_ROL] PRIMARY KEY CLUSTERED 
 (
@@ -661,7 +674,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[TIPO](
-	[id_tipo] [int] NOT NULL,
+	[id_tipo] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](20) NULL,
  CONSTRAINT [PK_TIPO] PRIMARY KEY CLUSTERED 
 (
@@ -681,7 +694,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[TIPO_PANTALLA](
-	[id_tipo] [int] NOT NULL,
+	[id_tipo] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](20) NULL,
 	[configuracion] [nchar](60) NULL,
  CONSTRAINT [PK_TIPO_PANTALLA] PRIMARY KEY CLUSTERED 
@@ -873,4 +886,3 @@ GO
 
 ALTER TABLE [dbo].[ACTIVIDAD] CHECK CONSTRAINT [FK_ACTIVIDAD_PANTALLA]
 GO
-
