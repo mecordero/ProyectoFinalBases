@@ -636,6 +636,7 @@ GO
 CREATE TABLE [dbo].[PRODUCTO](
 	[id_producto] [int] NOT NULL IDENTITY(1,1),
 	[id_flujo] [int] NULL,
+	[descripcion] [nchar](50) NULL,
  CONSTRAINT [PK_PRODUCTO] PRIMARY KEY CLUSTERED 
 (
 	[id_producto] ASC
