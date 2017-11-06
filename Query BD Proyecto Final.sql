@@ -697,7 +697,6 @@ GO
 CREATE TABLE [dbo].[TIPO_PANTALLA](
 	[id_tipo] [int] NOT NULL IDENTITY(1,1),
 	[nombre] [nchar](20) NULL,
-	[configuracion] [nchar](60) NULL,
  CONSTRAINT [PK_TIPO_PANTALLA] PRIMARY KEY CLUSTERED 
 (
 	[id_tipo] ASC
