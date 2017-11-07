@@ -131,6 +131,7 @@ CREATE TABLE [dbo].[ACTIVIDAD](
 	[id_pantalla] [int] NULL,
 	[tipo_firma] [char](1) NULL,
 	[rol_seguridad] [char](1) NULL,
+	[tipo_seguridad] [char](1) NULL,
 	[requerido] [char](1) NULL,
 	[tiempo_minutos] [int] NULL,
 	[tipo_empleado] [char](1) NULL,
