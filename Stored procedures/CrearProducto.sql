@@ -20,18 +20,19 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE CrearLinea 
+CREATE PROCEDURE CrearProducto
 	-- Add the parameters for the stored procedure here
-	@descripcion nchar(60)
+	@descripcion nchar(50)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	
+
+    -- Insert statements for procedure here
 	BEGIN TRY
 		BEGIN TRAN
-			INSERT INTO Linea
+			INSERT INTO PRODUCTO
 			(descripcion)
 			VALUES (@descripcion)
 		COMMIT
@@ -42,4 +43,4 @@ BEGIN
 END
 GO
 
---EXEC CrearLinea 'Linea 1'
+--EXEC CrearProducto 'producto 1'
