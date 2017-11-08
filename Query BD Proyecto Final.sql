@@ -134,7 +134,6 @@ CREATE TABLE [dbo].[ACTIVIDAD](
 	[tipo_seguridad] [char](1) NULL,
 	[requerido] [char](1) NULL,
 	[tiempo_minutos] [int] NULL,
-	[tipo_empleado] [char](1) NULL,
 	[periodica] [char](1) NULL,
  CONSTRAINT [PK_ACTIVIDAD] PRIMARY KEY CLUSTERED 
 (
