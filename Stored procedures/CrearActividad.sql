@@ -24,13 +24,12 @@ CREATE PROCEDURE CrearActividad
 	-- Add the parameters for the stored procedure here 
 	@nombre nchar(20),
 	@descripcion nchar(60),
-	@id_pantalla int,
+	@id_pantalla int = NULL,
 	@tipo_firma char(1),
 	@rol_seguridad char(1),
 	@tipo_seguridad char(1),
 	@requerido char(1),
 	@tiempo_minutos int,
-	@tipo_empleado char(1),
 	@periodica char(1)
 AS
 BEGIN
@@ -43,10 +42,23 @@ BEGIN
 	SET @codigo = 'codigo'
 
     -- Insert statements for procedure here
-	INSERT INTO ACTIVIDAD
-	(codigo, nombre, descripcion, id_pantalla, tipo_firma, rol_seguridad, tipo_seguridad, requerido, tiempo_minutos, tipo_empleado, periodica)
-	VALUES (@codigo, @nombre, @descripcion, @id_pantalla, @tipo_firma, @rol_seguridad, @tipo_seguridad, @requerido, @tiempo_minutos, @tipo_empleado, @periodica)
 
+	BEGIN TRY
+		BEGIN TRAN
+			INSERT INTO ACTIVIDAD
+				(codigo, nombre, descripcion, id_pantalla, tipo_firma, rol_seguridad, tipo_seguridad, 
+					requerido, tiempo_minutos, periodica)
+			VALUES (@codigo, @nombre, @descripcion, @id_pantalla, @tipo_firma, @rol_seguridad, @tipo_seguridad, 
+					@requerido, @tiempo_minutos, @periodica)
+		COMMIT
+	END TRY
+	BEGIN CATCH
+		ROLLBACK
+	END CATCH
+	
 END
 GO
 
+select * from actividad
+
+EXEC CrearActividad @nombre ='Nombre', @descripcion = 'Desc', @tipo_firma = 'S', @rol_seguridad = 'S',@tipo_seguridad = 'S', @requerido = 'Y', @tiempo_minutos = 120, @periodica = 'Y'

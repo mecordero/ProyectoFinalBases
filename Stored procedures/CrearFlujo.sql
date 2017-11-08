@@ -1,5 +1,3 @@
-USE[BD_COMPANIA]
-
 -- ================================================
 -- Template generated from Template Explorer using:
 -- Create Procedure (New Menu).SQL
@@ -20,32 +18,34 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE CrearProducto
+CREATE PROCEDURE CrearFlujo
 	-- Add the parameters for the stored procedure here
-	@descripcion nchar(50),
 	@id_flujo int OUTPUT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
+	
+	DECLARE @table table (id int)
+
 
 	BEGIN TRY
 		BEGIN TRAN
+			INSERT
+			INTO FLUJO
+			OUTPUT inserted.id_flujo INTO @table
+			DEFAULT VALUES
 
-			EXEC CrearFlujo @id_flujo 
-
-			INSERT INTO PRODUCTO
-			(id_flujo, descripcion)
-			VALUES (@id_flujo ,@descripcion)
+			SELECT @id_flujo = id from @table
 		COMMIT
 	END TRY
 	BEGIN CATCH
 		ROLLBACK
 	END CATCH
 
+	
+
 	RETURN
 END
 GO
-
---EXEC CrearProducto 'producto 1'
