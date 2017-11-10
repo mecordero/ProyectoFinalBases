@@ -33,7 +33,7 @@ BEGIN
 	BEGIN TRY
 		BEGIN TRAN
 
-			EXEC CrearFlujo @id_flujo 
+			EXEC CrearFlujo @id_flujo = @id_flujo OUTPUT
 
 			INSERT INTO PRODUCTO
 			(id_flujo, descripcion)
@@ -43,8 +43,6 @@ BEGIN
 	BEGIN CATCH
 		ROLLBACK
 	END CATCH
-
-	RETURN
 END
 GO
 
