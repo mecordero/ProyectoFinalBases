@@ -18,22 +18,25 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE CrearFlujo
-	@id_flujo int OUTPUT
+CREATE PROCEDURE CrearFlujoProceso
+	-- Add the parameters for the stored procedure here
+	@id_flujo int, 
+	@id_actividad int,
+	@id_flujo_proceso int OUTPUT
 AS
 BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	BEGIN TRY
-		BEGIN TRAN
-			INSERT
-			INTO FLUJO
-			DEFAULT VALUES
 
-			SET @id_flujo = SCOPE_IDENTITY()
-		COMMIT
-	END TRY
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
+	DECLARE @table table (id int)
+
+    INSERT INTO FLUJO_PROCESO
+	(id_actividad, id_flujo)
+	OUTPUT inserted.id_flujo_proceso INTO @table
+	VALUES(@id_actividad, @id_flujo)
+
+	SELECT @id_flujo_proceso = id from @table
+	RETURN
 END
 GO
