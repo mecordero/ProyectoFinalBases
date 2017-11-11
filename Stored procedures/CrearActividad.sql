@@ -26,7 +26,7 @@ BEGIN
 
 	set @codigo = SUBSTRING(@nombre, 1, 1)
 
-	set @num = '0000'
+	set @num = '00000'
 	set @num = CONCAT(RTRIM(@num), CAST(@posibleid AS nchar))
 	set @num = RIGHT(RTRIM(@num), 5)
 
