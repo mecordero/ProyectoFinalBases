@@ -22,15 +22,15 @@ CREATE PROCEDURE ExisteUsuario
 	-- Add the parameters for the stored procedure here
 	@usuario nchar(20),
 	@contraseña nchar(20),
-	@numUsuarios int OUTPUT
+	@idEmpleado int OUTPUT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SET @numUsuarios =
-	(SELECT count(*)
+	SET @idEmpleado =
+	(SELECT e.id_empleado
 	FROM EMPLEADO e
 	WHERE e.usuario = @usuario and e.contraseña = @contraseña)
 
