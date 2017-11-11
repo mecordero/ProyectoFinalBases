@@ -30,7 +30,19 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @lote nchar (10)
-	SET @lote = 'LOTE'
+	SET @lote = 'LOT'
+	DECLARE @num nchar(10)
+	SET @num = '0000000'
+
+	Declare @posibleid int
+	set @posibleid = (SELECT MAX(a.id_actividad)+1
+					  FROM ACTIVIDAD a)
+
+	set @num = CONCAT(RTRIM(@num), CAST(@posibleid AS nchar))
+	set @num = RIGHT(RTRIM(@num), 7)
+
+	set @lote = CONCAT(RTRIM(@lote), RTRIM(@num))
+
 
 	DECLARE @tabla1 TABLE 
 		(id_actividad int, codigo nchar(20))
