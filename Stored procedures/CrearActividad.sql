@@ -18,7 +18,20 @@ BEGIN
 
 	--hay que generar el codigo automáticamente
 	Declare @codigo nchar(20)
-	SET @codigo = 'codigo'
+	Declare @num nchar(10)
+
+	Declare @posibleid int
+	set @posibleid = (SELECT MAX(a.id_actividad)+1
+					  FROM ACTIVIDAD a)
+
+	set @codigo = SUBSTRING(@nombre, 1, 1)
+
+	set @num = '0000'
+	set @num = CONCAT(RTRIM(@num), CAST(@posibleid AS nchar))
+	set @num = RIGHT(RTRIM(@num), 5)
+
+	set @codigo = CONCAT(RTRIM(@codigo), RTRIM(@num))
+	set @codigo = CONCAT(RTRIM(@codigo), 'A')
 
     -- Insert statements for procedure here
 
@@ -38,5 +51,3 @@ BEGIN
 	
 END
 GO
-
-
