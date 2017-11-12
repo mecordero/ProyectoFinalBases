@@ -1,7 +1,7 @@
 USE [BD_COMPANIA]
 GO
 
-/****** Object:  View [dbo].[OrdenesQueIniciar]    Script Date: 11/11/2017 10:04:55 PM ******/
+/****** Object:  View [dbo].[OrdenesQueIniciar]    Script Date: 11/11/2017 10:38:50 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,11 +10,11 @@ GO
 
 CREATE VIEW [dbo].[OrdenesQueIniciar]
 AS
-SELECT        o.id_orden, o.id_producto, o.id_linea
+SELECT        o.id_orden, p.descripcion AS producto, l.descripcion AS linea
 FROM            dbo.ORDEN AS o INNER JOIN
-                         dbo.ESTADO AS e ON o.status = e.id_estado
-WHERE        (e.nombre = 'init') OR
-                         (e.nombre = 'quarentine')
+                         dbo.ESTADO AS e ON o.status = e.id_estado INNER JOIN
+                         dbo.PRODUCTO AS p ON p.id_producto = o.id_producto INNER JOIN
+                         dbo.LINEA AS l ON l.id_linea = o.id_linea
 
 GO
 
@@ -105,6 +105,26 @@ Begin DesignProperties =
                Left = 259
                Bottom = 102
                Right = 429
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "p"
+            Begin Extent = 
+               Top = 6
+               Left = 467
+               Bottom = 119
+               Right = 637
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "l"
+            Begin Extent = 
+               Top = 6
+               Left = 675
+               Bottom = 102
+               Right = 845
             End
             DisplayFlags = 280
             TopColumn = 0
