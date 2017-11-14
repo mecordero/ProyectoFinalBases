@@ -20,7 +20,7 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-ALTER PROCEDURE CrearOrden
+CREATE PROCEDURE CrearOrden
 	-- Add the parameters for the stored procedure here
 	@id_empleado int,
 	@id_producto int,
