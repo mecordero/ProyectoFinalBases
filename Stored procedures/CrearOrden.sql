@@ -20,28 +20,30 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE CrearOrden
+ALTER PROCEDURE CrearOrden
 	-- Add the parameters for the stored procedure here
 	@id_empleado int,
 	@id_producto int,
-	@id_linea int
+	@id_linea int,
+	@pais nchar(2)
 AS
 BEGIN
 	SET NOCOUNT ON;
+	DECLARE @anho char(2)
+	SET @anho = Right(YEAR(GETDATE()),2)
+	DECLARE @mes char(1)
+	SET @mes = CHAR(MONTH(GETDATE())+64)
+	DECLARE @dia char(2)
+	SET @dia = RIGHT(CONCAT('0',CONVERT(char(2),DAY(GETDATE()))),2)
+	DECLARE @consecutivo char(3)
+	DECLARE @num int
+	SET @num = 
+	(select max(id_orden) 
+	from ORDEN) + 1
+	SET @consecutivo = CONCAT ('00', CONVERT(char(3), @num))
 
-	DECLARE @lote nchar (10)
-	SET @lote = 'LOT'
-	DECLARE @num nchar(10)
-	SET @num = '0000000'
-
-	Declare @posibleid int
-	set @posibleid = (SELECT MAX(a.id_actividad)+1
-					  FROM ACTIVIDAD a)
-
-	set @num = CONCAT(RTRIM(@num), CAST(@posibleid AS nchar))
-	set @num = RIGHT(RTRIM(@num), 7)
-
-	set @lote = CONCAT(RTRIM(@lote), RTRIM(@num))
+	DECLARE @lote nchar(10)
+	set @lote = CONCAT(@pais, @anho, @mes, @dia, @consecutivo)
 
 
 	DECLARE @tabla1 TABLE 
