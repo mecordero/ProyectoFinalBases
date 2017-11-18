@@ -116,19 +116,15 @@ BEGIN
 
 
 			--inserta la orden
+
+			DECLARE @OutputTbl TABLE (ID INT)
+
 			INSERT INTO ORDEN
 			(lote, id_producto, id_linea, fecha_creacion, status, id_copia_flujo)
+			OUTPUT inserted.id_orden into @OutputTbl(ID)
 			VALUES(@lote, @id_producto, @id_linea, @fecha, 1, @id_copia_flujo)
 
-			SET @id_orden = SCOPE_IDENTITY()
-
-
-			--"ejecuta" la orden
-			-- (no hace nada)
-
-			-- la pasa a for quality
-
-
+			SET @id_orden = (SELECT o.ID FROM @OutputTbl o)
 
 		COMMIT
 	END TRY

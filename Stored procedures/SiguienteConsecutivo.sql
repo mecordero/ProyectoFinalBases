@@ -1,4 +1,4 @@
-CREATE PROCEDURE SiguienteConsecutivo 
+ALTER PROCEDURE SiguienteConsecutivo 
 	@pais char(2), @ultimo char(3) OUTPUT
 AS 
 BEGIN
@@ -7,7 +7,7 @@ BEGIN
 	DECLARE @mes char(1)
 	SET @mes = CHAR(MONTH(GETDATE())+64)
 	DECLARE @dia char(2)
-	SET @dia = RIGHT(CONCAT('0',CONVERT(char(2),DAY(GETDATE()))),2)
+	SET @dia = RIGHT(CONCAT('00',RTRIM(CONVERT(char(2),DAY(GETDATE())))),2)
 
 	DECLARE @lote nchar(10)
 	set @lote = CONCAT(@pais, @anho, @mes, @dia)
