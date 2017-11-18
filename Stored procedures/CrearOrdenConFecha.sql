@@ -22,17 +22,14 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @anho char(2)
-	SET @anho = Right(YEAR(GETDATE()),2)
+	SET @anho = Right(YEAR(@fecha),2)
 	DECLARE @mes char(1)
-	SET @mes = CHAR(MONTH(GETDATE())+64)
+	SET @mes = CHAR(MONTH(@fecha)+64)
 	DECLARE @dia char(2)
-	SET @dia = RIGHT(CONCAT('0',CONVERT(char(2),DAY(GETDATE()))),2)
+	SET @dia = RIGHT(CONCAT('00',RTRIM(CONVERT(char(2),DAY(@fecha)))),2)
 	DECLARE @consecutivo char(3)
-	DECLARE @num int
-	SET @num = 
-	(select max(id_orden) 
-	from ORDEN) + 1
-	SET @consecutivo = CONCAT ('00', CONVERT(char(3), @num))
+	
+	EXECUTE [dbo].[SiguienteConsecutivoConFecha] @pais, @fecha,@consecutivo OUTPUT
 
 	DECLARE @lote nchar(10)
 	set @lote = CONCAT(@pais, @anho, @mes, @dia, @consecutivo)
